@@ -12,3 +12,9 @@ def getJsonFromFile(showName):
         return template("{folder}/{filename}.json".format(folder=JSON_FOLDER, filename=showName))
     except:
         return "{}"
+
+def getShowData():
+    shows=[]
+    for show in AVAILABE_SHOWS:
+        shows.append(json.loads(getJsonFromFile(show)))
+    return shows
