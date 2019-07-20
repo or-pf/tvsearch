@@ -18,3 +18,14 @@ def getShowData():
     for show in AVAILABE_SHOWS:
         shows.append(json.loads(getJsonFromFile(show)))
     return shows
+
+def search(query):
+    shows = getShowData()
+    list = []
+    for show in shows:
+        for episode in show['_embedded']['episodes']:
+            if str(episode['name']).lower().find(query.lower()) > -1:
+                element = {'showid': show['id'], 'episodeid': episode['id'], 'text': '{}: {}'.format(
+                    show['name'], episode['name'])}
+                list.append(element)
+    return list

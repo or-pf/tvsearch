@@ -30,12 +30,17 @@ def browse():
 
 @route('/search')
 def search():
-    sectionTemplate = "./templates/show.tpl"
+    sectionTemplate = "./templates/search.tpl"
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData = {})
+
+@post('/search')
+def search_result():
+    query = request.forms.get('q')
+    sectionTemplate = "./templates/search_result.tpl"
+    return template("./pages/index.html", version=utils.getVersion(),sectionTemplate=sectionTemplate, query=query, results= utils.search(query), sectionData={})
 
 @route('/ajax/show/<show>')
 def show(show):
-    # sectionTemplate = "./templates/search.tpl"
     sectionData = json.loads(utils.getJsonFromFile(show))
     return template("./templates/show.tpl", version=utils.getVersion(), result=sectionData)
     
